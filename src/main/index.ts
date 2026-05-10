@@ -56,6 +56,15 @@ crashReporter.start({
   uploadToServer: false
 })
 
+// 禁用组件更新
+app.commandLine.appendSwitch('disable-component-update');
+
+// 禁用后台网络请求
+app.commandLine.appendSwitch('disable-background-networking');
+
+// 禁用安全浏览（如果不需要）
+app.commandLine.appendSwitch('disable-features', 'SafeBrowsing');
+
 /**
  * Disable hardware acceleration if setting is enabled
  */
