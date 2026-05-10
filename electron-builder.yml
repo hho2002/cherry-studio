@@ -2,14 +2,8 @@ appId: com.kangfenmao.CherryStudio
 productName: Cherry Studio
 electronLanguages:
   - zh-CN
-  - zh-TW
   - en-US
   - ja # macOS/linux/win
-  - ru # macOS/linux/win
-  - zh_CN # for macOS
-  - zh_TW # for macOS
-  - en # for macOS
-  - de
 directories:
   buildResources: build
 
@@ -80,7 +74,6 @@ win:
   artifactName: ${productName}-${version}-${arch}-setup.${ext}
   target:
     - target: nsis
-    - target: portable
   signtoolOptions:
     sign: scripts/win-sign.js
   verifyUpdateCodeSignature: false
