@@ -74,8 +74,6 @@ win:
   artifactName: ${productName}-${version}-${arch}-setup.${ext}
   target:
     - target: nsis
-  signtoolOptions:
-    sign: scripts/win-sign.js
   verifyUpdateCodeSignature: false
 nsis:
   artifactName: ${productName}-${version}-${arch}-setup.${ext}

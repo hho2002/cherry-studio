@@ -63,14 +63,11 @@ jobs:
           mkdir -p renamed-artifacts
           DATE=${{ steps.date.outputs.date }}
 
-          # Windows artifacts - based on actual file naming pattern
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            # Setup installer
-            find dist -name "*-x64-setup.exe" -exec cp {} renamed-artifacts/cherry-studio-nightly-${DATE}-x64-setup.exe \;
+          # Setup installer
+          find dist -name "*-x64-setup.exe" -exec cp {} renamed-artifacts/cherry-studio-nightly-${DATE}-x64-setup.exe \;
 
-            # Portable exe
-            find dist -name "*-x64-portable.exe" -exec cp {} renamed-artifacts/cherry-studio-nightly-${DATE}-x64-portable.exe \;
-          fi
+          # Portable exe
+          find dist -name "*-x64-portable.exe" -exec cp {} renamed-artifacts/cherry-studio-nightly-${DATE}-x64-portable.exe \;
 
           # Copy update files
           cp dist/latest*.yml renamed-artifacts/ || true
