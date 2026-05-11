@@ -20,6 +20,7 @@ export class SearchService {
       height: 768,
       show,
       webPreferences: {
+        spellcheck: false,
         nodeIntegration: true,
         contextIsolation: false,
         devTools: is.dev

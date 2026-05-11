@@ -71,7 +71,7 @@ export class PowerMonitorService {
    */
   private initWindowsShutdownHandler(): void {
     try {
-      const zeroMemoryWindow = new BrowserWindow({ show: false })
+      const zeroMemoryWindow = new BrowserWindow({ show: false, webPreferences: {spellcheck: false} })
       // Set the window handle for the shutdown handler
       ElectronShutdownHandler.setWindowHandle(zeroMemoryWindow.getNativeWindowHandle())
 

@@ -94,6 +94,7 @@ export class WindowService {
       darkTheme: nativeTheme.shouldUseDarkColors,
       ...(isLinux ? { icon: linuxIcon } : {}),
       webPreferences: {
+        spellcheck: false,
         preload: join(__dirname, '../preload/index.js'),
         sandbox: false,
         webSecurity: false,
@@ -555,6 +556,7 @@ export class WindowService {
       maximizable: false,
       fullscreenable: false,
       webPreferences: {
+        spellcheck: false,
         preload: join(__dirname, '../preload/index.js'),
         sandbox: false,
         webSecurity: false,

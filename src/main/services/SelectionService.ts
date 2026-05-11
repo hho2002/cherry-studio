@@ -474,6 +474,7 @@ export class SelectionService {
       acceptFirstMouse: true, // [macOS only]
 
       webPreferences: {
+        spellcheck: false,
         preload: join(__dirname, '../preload/index.js'),
         contextIsolation: true,
         nodeIntegration: false,
@@ -1203,6 +1204,7 @@ export class SelectionService {
       thickFrame: false,
       show: false,
       webPreferences: {
+        spellcheck: false,
         preload: join(__dirname, '../preload/index.js'),
         contextIsolation: true,
         nodeIntegration: false,

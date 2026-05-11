@@ -78,6 +78,7 @@ export function openTraceWindow(topicId: string, traceId: string, autoOpen = tru
     frame: true,
     titleBarOverlay: { height: 40 },
     webPreferences: {
+      spellcheck: false,
       preload: path.join(__dirname, '../preload/index.js'),
       contextIsolation: true,
       nodeIntegration: false,

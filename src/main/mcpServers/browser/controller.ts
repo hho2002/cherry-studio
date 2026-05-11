@@ -363,6 +363,7 @@ export class CdpBrowserController {
             frame: false // Frameless window for Windows and Linux
           }),
       webPreferences: {
+        spellcheck: false, // 禁用拼写检查，防止下载字典
         contextIsolation: true,
         sandbox: true,
         nodeIntegration: false,
