@@ -3,9 +3,6 @@ name: Release
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref && github.ref || github.run_id }}
   cancel-in-progress: true
@@ -17,9 +14,6 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          ref: test
 
       - name: Install Node.js
         uses: actions/setup-node@v6
@@ -45,11 +39,6 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Generate date tag
-        id: date
-        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
-        shell: bash
-
       - name: Build Windows
         run: |
           pnpm build:win:x64
@@ -57,19 +46,31 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_OPTIONS: --max-old-space-size=8192
 
-      - name: Rename artifacts with nightly format
+      - name: Generate date tag
+        id: date
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: List build files
+        shell: bash
+        run: |
+          echo "编译的文件:"
+          if [ -x "$(command -v tree)" ]; then
+            tree dist
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            dir dist
+          else
+            ls -la dist
+          fi
+          echo "总计: $(find dist -type f | wc -l) 个文件"
+
+      - name: Rename artifacts
         shell: bash
         run: |
           mkdir -p renamed-artifacts
-          DATE=${{ steps.date.outputs.date }}
-
-          # Setup installer
-          find dist -name "*-x64-setup.exe" -exec cp {} renamed-artifacts/cherry-studio-nightly-${DATE}-x64-setup.exe \;
-
-          # Portable exe
-          find dist -name "*-x64-portable.exe" -exec cp {} renamed-artifacts/cherry-studio-nightly-${DATE}-x64-portable.exe \;
-
-          # Copy update files
+          # Copy files
+          cp dist/*.exe renamed-artifacts/ || true
+          cp dist/*.zip renamed-artifacts/ || true
           cp dist/latest*.yml renamed-artifacts/ || true
 
       - name: Generate SHA256 checksums (Windows)
@@ -100,7 +101,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: cherry-studio-nightly-${{ steps.date.outputs.date }}-windows
+          name: cherry-studio-${{ steps.date.outputs.date }}-windows
           path: renamed-artifacts/*
           retention-days: 3 # 保留3天
           compression-level: 8
