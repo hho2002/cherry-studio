@@ -102,9 +102,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: cherry-studio-${{ steps.date.outputs.date }}-windows
-          path: renamed-artifacts/*
+          path: renamed-artifacts/*-x64-setup.exe
           retention-days: 3 # 保留3天
-          compression-level: 8
+          archive: false
 
       - name: Create summary report
         shell: bash

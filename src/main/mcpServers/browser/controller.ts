@@ -1,7 +1,14 @@
 import { titleBarOverlayDark, titleBarOverlayLight } from '@main/config'
 import { isMac } from '@main/constant'
 import { randomUUID } from 'crypto'
+
 import { app, BrowserView, BrowserWindow, nativeTheme } from 'electron'
+app.commandLine.appendSwitch('disable-component-update');
+app.commandLine.appendSwitch('disable-background-networking');
+app.commandLine.appendSwitch('disable-domain-reliability');
+app.commandLine.appendSwitch('disable-sync');
+app.commandLine.appendSwitch('metrics-recording-only');
+
 import TurndownService from 'turndown'
 
 import { SESSION_KEY_DEFAULT, SESSION_KEY_PRIVATE, TAB_BAR_HEIGHT } from './constants'
